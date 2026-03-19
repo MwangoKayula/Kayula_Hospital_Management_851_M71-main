@@ -6,6 +6,7 @@
     <title>Медицинская платформа - Поликлиники</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ALL YOUR EXISTING CSS STYLES REMAIN EXACTLY THE SAME */
         * {
             margin: 0;
             padding: 0;
@@ -68,6 +69,7 @@
             text-decoration: none;
             font-weight: 700;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
         
         nav ul li a:hover {
@@ -221,10 +223,11 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
         
-        /* Services Section */
+        /* Services Section - WITH ID for scrolling */
         .services {
             padding: 70px 0;
             background-color: white;
+            scroll-margin-top: 100px;
         }
         
         .section-title {
@@ -397,22 +400,72 @@
                 font-size: 18px;
             }
         }
+        
+        /* Demo mode notice - NEW */
+        .demo-banner {
+            background-color: #e7f3ff;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #0056b3;
+        }
+        
+        .demo-banner i {
+            color: #0056b3;
+            margin-right: 5px;
+        }
+        
+        /* Logout button - NEW */
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
+    <!-- Demo Mode Banner -->
+    <div class="demo-banner">
+        <i class="fas fa-info-circle"></i> Демо-режим: Вы вошли как "Пациент"
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-content">
-            <img src = "https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt = "Company Logo" class = "logo">
+            <img src="https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt="Company Logo" class="logo">
             <div class="logo">ПОЛИКЛИНИКИ<span></span></div>
-            <nav>
-                <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="Doctors_dashboard.html">Врачи</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </nav>
+            
+            <div class="header-right">
+                <nav>
+                    <ul>
+                        <li><a href="#" id="homeLink">Главная</a></li>
+                        <li><a href="#" id="servicesLink">Услуги</a></li>
+                        <li><a href="Doctors_dashboard.html">Врачи</a></li>
+                        <li><a href="#" id="contactsLink">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button onclick="window.location.href='index.html'" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
         </div>
     </header>
 
@@ -449,14 +502,14 @@
             
             <h1>Найдите своего врача и запишитесь на прием</h1>
             <div class="btn-group">
-                <button onclick= "window.open('index.html')" class="btn">Записаться на приём</button>
-                <button class="btn">Смотрите больше</button>
+                <button onclick="window.location.href='Doctors_dashboard.html'" class="btn">Записаться на приём</button>
+                <button class="btn" id="learnMoreBtn">Смотрите больше</button>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services">
+    <section class="services" id="servicesSection">
         <div class="container">
             <div class="section-title">
                 <h2>Просмотр сервисов</h2>
@@ -499,10 +552,10 @@
             <div class="footer-content">
                 <div class="footer-logo">ПОЛИКЛИНИКИ<span>.</span></div>
                 <div class="footer-links">
-                    <a href="#">О нас</a>
-                    <a href="#">Услуги</a>
+                    <a href="#" id="footerAbout">О нас</a>
+                    <a href="#" id="footerServices">Услуги</a>
                     <a href="Doctors_dashboard.html">Врачи</a>
-                    <a href="#">Контакты</a>
+                    <a href="#" id="footerContacts">Контакты</a>
                 </div>
             </div>
             <div class="copyright">
@@ -512,7 +565,82 @@
     </footer>
 
     <script>
-        // Slider functionality
+        // ========== SMOOTH SCROLLING ==========
+        
+        function scrollToServices() {
+            const servicesSection = document.getElementById('servicesSection');
+            if (servicesSection) {
+                servicesSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Add click event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Services link in navigation
+            const servicesLink = document.getElementById('servicesLink');
+            if (servicesLink) {
+                servicesLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    scrollToServices();
+                });
+            }
+            
+            // Services link in footer
+            const footerServices = document.getElementById('footerServices');
+            if (footerServices) {
+                footerServices.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    scrollToServices();
+                });
+            }
+            
+            // Home link - scroll to top
+            const homeLink = document.getElementById('homeLink');
+            if (homeLink) {
+                homeLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    scrollToTop();
+                });
+            }
+            
+            // Footer About - scroll to top
+            const footerAbout = document.getElementById('footerAbout');
+            if (footerAbout) {
+                footerAbout.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    scrollToTop();
+                });
+            }
+            
+            // Contacts links - show info
+            const contactsLinks = document.querySelectorAll('#contactsLink, #footerContacts');
+            contactsLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Контактная информация:\nг. Москва, ул. Медицинская, 1\nТел: +7 (495) 123-45-67\nEmail: info@polikliniki.ru');
+                });
+            });
+            
+            // Learn more button
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            if (learnMoreBtn) {
+                learnMoreBtn.addEventListener('click', function() {
+                    scrollToServices();
+                });
+            }
+        });
+
+        // ========== SLIDER FUNCTIONALITY ==========
         const slides = document.getElementById('slides');
         const slideImages = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevBtn');
@@ -520,13 +648,11 @@
         const dots = document.querySelectorAll('.dot');
         
         let currentSlide = 0;
-        const slideWidth = 100; // in percentage
+        const slideWidth = 100;
         
-        // Function to update slider position
         function updateSlider() {
             slides.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
             
-            // Update active dot
             dots.forEach((dot, index) => {
                 if (index === currentSlide) {
                     dot.classList.add('active');
@@ -536,23 +662,19 @@
             });
         }
         
-        // Next slide
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slideImages.length;
             updateSlider();
         }
         
-        // Previous slide
         function prevSlide() {
             currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
             updateSlider();
         }
         
-        // Event listeners for navigation buttons
         nextBtn.addEventListener('click', nextSlide);
         prevBtn.addEventListener('click', prevSlide);
         
-        // Event listeners for dots
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 currentSlide = parseInt(dot.getAttribute('data-slide'));
@@ -560,16 +682,13 @@
             });
         });
         
-        // Auto-slide functionality
-        let slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        let slideInterval = setInterval(nextSlide, 5000);
         
-        // Pause auto-slide when hovering over slider
         const sliderContainer = document.querySelector('.slider-container');
         sliderContainer.addEventListener('mouseenter', () => {
             clearInterval(slideInterval);
         });
         
-        // Resume auto-slide when mouse leaves slider
         sliderContainer.addEventListener('mouseleave', () => {
             slideInterval = setInterval(nextSlide, 5000);
         });

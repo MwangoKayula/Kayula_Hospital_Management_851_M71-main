@@ -6,6 +6,7 @@
     <title>Медицинская платформа - Поликлиники</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ALL YOUR EXISTING CSS STYLES REMAIN EXACTLY THE SAME */
         * {
             margin: 0;
             padding: 0;
@@ -32,9 +33,6 @@
             color: rgb(3, 185, 28);
             padding: 20px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
         
         .header-content {
@@ -55,36 +53,6 @@
         
         .logo span {
             color: #4caf50;
-        }
-        
-        /* User info in header - NEW */
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .welcome-message {
-            color: #0056b3;
-            font-weight: 500;
-        }
-        
-        .logout-btn {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        
-        .logout-btn:hover {
-            background-color: #ff3333;
-            transform: translateY(-2px);
         }
         
         nav ul {
@@ -247,8 +215,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-decoration: none;
-            display: inline-block;
         }
         
         .btn:hover {
@@ -257,11 +223,11 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
         
-        /* Services Section - ADDED ID for scrolling */
+        /* Services Section - WITH ID for scrolling */
         .services {
             padding: 70px 0;
             background-color: white;
-            scroll-margin-top: 100px; /* Prevents header from covering content when scrolling */
+            scroll-margin-top: 100px;
         }
         
         .section-title {
@@ -378,7 +344,6 @@
             color: white;
             text-decoration: none;
             transition: color 0.3s ease;
-            cursor: pointer;
         }
         
         .footer-links a:hover {
@@ -402,12 +367,10 @@
             
             nav ul {
                 margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
             }
             
             nav ul li {
-                margin: 5px 10px;
+                margin: 0 10px;
             }
             
             .hero h1 {
@@ -436,92 +399,73 @@
                 height: 40px;
                 font-size: 18px;
             }
-            
-            .user-info {
-                margin-top: 10px;
-                justify-content: center;
-            }
         }
         
-        /* Loading overlay - NEW */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
+        /* Demo mode notice - NEW */
+        .demo-banner {
+            background-color: #e7f3ff;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #0056b3;
+        }
+        
+        .demo-banner i {
+            color: #0056b3;
+            margin-right: 5px;
+        }
+        
+        /* Logout button - NEW */
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+        }
+        
+        .header-right {
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 2000;
-            display: none;
-        }
-        
-        .loading-overlay.active {
-            display: flex;
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4caf50;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
+    <!-- Demo Mode Banner -->
+    <div class="demo-banner">
+        <i class="fas fa-info-circle"></i> Демо-режим: Вы вошли как "Пациент"
     </div>
 
-    <!-- Header - MODIFIED to include PHP session info -->
+    <!-- Header -->
     <header>
         <div class="container header-content">
             <img src="https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt="Company Logo" class="logo">
             <div class="logo">ПОЛИКЛИНИКИ<span></span></div>
             
-            <?php
-            session_start();
-            if (isset($_SESSION['user_id'])) {
-                // User is logged in
-                $userName = $_SESSION['user_name'] ?? $_SESSION['username'];
-                $userRole = $_SESSION['user_role'] ?? '';
-                ?>
-                <div class="user-info">
-                    <span class="welcome-message">
-                        <i class="fas fa-user-circle"></i> 
-                        <?php echo htmlspecialchars($userName); ?> 
-                        (<?php echo $userRole == 'doctor' ? 'Врач' : 'Пациент'; ?>)
-                    </span>
-                    <a href="logout.php" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i> Выйти
-                    </a>
-                </div>
-                <?php
-            } else {
-                // User not logged in - redirect to login page
-                header("Location: index.html");
-                exit();
-            }
-            ?>
-            
-            <nav>
-                <ul>
-                    <li><a href="#" id="homeLink">Главная</a></li>
-                    <li><a href="#" id="servicesLink">Услуги</a></li>
-                    <li><a href="Doctors_dashboard.html">Врачи</a></li>
-                    <li><a href="#" id="contactsLink">Контакты</a></li>
-                </ul>
-            </nav>
+            <div class="header-right">
+                <nav>
+                    <ul>
+                        <li><a href="#" id="homeLink">Главная</a></li>
+                        <li><a href="#" id="servicesLink">Услуги</a></li>
+                        <li><a href="Doctors_dashboard.html">Врачи</a></li>
+                        <li><a href="#" id="contactsLink">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button onclick="window.location.href='index.html'" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
         </div>
     </header>
 
@@ -532,7 +476,7 @@
             <div class="slider-container">
                 <div class="slides-wrapper" id="slides">
                     <div class="slide">
-                        <img src="https://dfcm.utoronto.ca/sites/default/files/styles/scale_width_1750/public/assets/news/image/iStock-1301555107_0.jpg?itok=KJG3yAQg" alt="Hospital">
+                        <img src="https://dfcm.utoronto.ca/sites/default/files/styles/scale_width_1750/public/assets/news/image/iStock-1301555107_0.jpg?itok=KJG3yAQg">
                     </div>
                     <div class="slide">
                         <img src="https://img.freepik.com/premium-photo/young-doctor-russian-woman-isolated-white-background-showing-copy-space-palm-holding-another-hand-waist_1187-188130.jpg" alt="Медицинский персонал">
@@ -564,7 +508,7 @@
         </div>
     </section>
 
-    <!-- Services Section - ADDED ID for scrolling -->
+    <!-- Services Section -->
     <section class="services" id="servicesSection">
         <div class="container">
             <div class="section-title">
@@ -621,9 +565,8 @@
     </footer>
 
     <script>
-        // ========== SMOOTH SCROLLING FUNCTIONALITY ==========
+        // ========== SMOOTH SCROLLING ==========
         
-        // Function to smoothly scroll to services section
         function scrollToServices() {
             const servicesSection = document.getElementById('servicesSection');
             if (servicesSection) {
@@ -634,7 +577,6 @@
             }
         }
         
-        // Function to scroll to top
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -642,9 +584,9 @@
             });
         }
         
-        // Add click event listeners for all "Услуги" links
+        // Add click event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            // Navigation link
+            // Services link in navigation
             const servicesLink = document.getElementById('servicesLink');
             if (servicesLink) {
                 servicesLink.addEventListener('click', function(e) {
@@ -653,7 +595,7 @@
                 });
             }
             
-            // Footer services link
+            // Services link in footer
             const footerServices = document.getElementById('footerServices');
             if (footerServices) {
                 footerServices.addEventListener('click', function(e) {
@@ -671,7 +613,7 @@
                 });
             }
             
-            // Footer about link - scroll to top
+            // Footer About - scroll to top
             const footerAbout = document.getElementById('footerAbout');
             if (footerAbout) {
                 footerAbout.addEventListener('click', function(e) {
@@ -680,42 +622,25 @@
                 });
             }
             
-            // Contacts links - show message (you can customize this)
+            // Contacts links - show info
             const contactsLinks = document.querySelectorAll('#contactsLink, #footerContacts');
             contactsLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert('Контактная информация: г. Москва, ул. Медицинская, 1\nТел: +7 (495) 123-45-67\nEmail: info@polikliniki.ru');
+                    alert('Контактная информация:\nг. Москва, ул. Медицинская, 1\nТел: +7 (495) 123-45-67\nEmail: info@polikliniki.ru');
                 });
             });
             
-            // Learn more button - scroll to services
+            // Learn more button
             const learnMoreBtn = document.getElementById('learnMoreBtn');
             if (learnMoreBtn) {
                 learnMoreBtn.addEventListener('click', function() {
                     scrollToServices();
                 });
             }
-            
-            // Highlight active section while scrolling
-            window.addEventListener('scroll', function() {
-                const servicesSection = document.getElementById('servicesSection');
-                if (servicesSection) {
-                    const rect = servicesSection.getBoundingClientRect();
-                    const isInView = rect.top <= 100 && rect.bottom >= 100;
-                    
-                    if (isInView) {
-                        servicesLink.style.color = '#0056b3';
-                        servicesLink.style.fontWeight = 'bold';
-                    } else {
-                        servicesLink.style.color = 'rgb(31, 160, 5)';
-                        servicesLink.style.fontWeight = '700';
-                    }
-                }
-            });
         });
 
-        // ========== SLIDER FUNCTIONALITY (unchanged) ==========
+        // ========== SLIDER FUNCTIONALITY ==========
         const slides = document.getElementById('slides');
         const slideImages = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevBtn');
@@ -767,23 +692,6 @@
         sliderContainer.addEventListener('mouseleave', () => {
             slideInterval = setInterval(nextSlide, 5000);
         });
-        
-        // ========== SESSION CHECK ==========
-        // Optional: Check session via AJAX to ensure user is still logged in
-        function checkSession() {
-            fetch('check_session.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.logged_in) {
-                        // User session expired, redirect to login
-                        window.location.href = 'index.html?error=session_expired';
-                    }
-                })
-                .catch(error => console.error('Session check failed:', error));
-        }
-        
-        // Check session every 5 minutes
-        setInterval(checkSession, 300000);
     </script>
 </body>
 </html>
