@@ -6,6 +6,7 @@
     <title>Вход и регистрация - Поликлиники</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Your existing CSS remains exactly the same */
         * {
             margin: 0;
             padding: 0;
@@ -269,6 +270,35 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.2);
         }
         
+        /* Error message styling - ADD THIS NEW STYLE */
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
         /* Footer */
         footer {
             background-color: #2c3e50;
@@ -343,15 +373,8 @@
     <header>
         <div class="container header-content">
              <img src = "https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt = "Company Logo" class = "logo">
-            <div class="logo">ПОЛИКЛИНИКИ<span>.</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="#">Врачи</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </nav>
+            <div class="logo">ПОЛИКЛИНИКИ<span></span></div>
+           
         </div>
     </header>
 
@@ -364,21 +387,25 @@
             </div>
             
             <div class="form-content">
-                <!-- Login Form -->
+                <!-- Error/Success message container -->
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+                
+                <!-- Login Form - CHANGED: action points to login.php, method POST -->
                 <div id="loginForm" class="tab-content">
-                    <form>
+                    <form action="login.php" method="POST" id="loginFormElement">
                         <div class="form-group">
                             <label for="loginEmail">адрес электронной почты / номер телефона</label>
-                            <input type="text" id="loginEmail" placeholder="Введите email или телефон">
+                            <input type="text" id="loginEmail" name="username" placeholder="Введите email или телефон" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="loginPassword">пароль</label>
-                            <input type="password" id="loginPassword" placeholder="Введите пароль">
+                            <input type="password" id="loginPassword" name="password" placeholder="Введите пароль" required>
                         </div>
                         
                         <div class="form-check">
-                            <input type="checkbox" id="rememberMe">
+                            <input type="checkbox" id="rememberMe" name="remember">
                             <label for="rememberMe">Запомнить меня</label>
                         </div>
                         
@@ -387,7 +414,7 @@
                         </div>
                         
                         <button type="submit" class="submit-btn">Войти</button>
-                         <button onclick= "window.open('home.html')" class="btn">Temp login</button>
+                        <!-- REMOVED: Temp login button - no longer needed -->
                     </form>
                     
                     <div class="social-login">
@@ -400,31 +427,44 @@
                     </div>
                 </div>
                 
-                <!-- Registration Form -->
+                <!-- Registration Form - CHANGED: action points to register.php, method POST -->
                 <div id="registerForm" class="tab-content" style="display: none;">
-                    <form>
+                    <form action="register.php" method="POST" id="registerFormElement">
                         <div class="form-group">
                             <label for="fullName">полное имя</label>
-                            <input type="text" id="fullName" placeholder="Введите ваше имя">
+                            <input type="text" id="fullName" name="fullname" placeholder="Введите ваше имя" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="registerEmail">адрес электронной почты</label>
-                            <input type="email" id="registerEmail" placeholder="Введите email">
+                            <input type="email" id="registerEmail" name="email" placeholder="Введите email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPhone">номер телефона</label>
+                            <input type="tel" id="registerPhone" name="phone" placeholder="Введите номер телефона" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="registerPassword">пароль</label>
-                            <input type="password" id="registerPassword" placeholder="Введите пароль">
+                            <input type="password" id="registerPassword" name="password" placeholder="Введите пароль" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="confirmPassword">подтвердите пароль</label>
-                            <input type="password" id="confirmPassword" placeholder="Подтвердите пароль">
+                            <input type="password" id="confirmPassword" name="confirm_password" placeholder="Подтвердите пароль" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userRole">Вы</label>
+                            <select id="userRole" name="role" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                                <option value="patient">Пациент</option>
+                                <option value="doctor">Врач</option>
+                            </select>
                         </div>
                         
                         <div class="form-check">
-                            <input type="checkbox" id="agreeTerms">
+                            <input type="checkbox" id="agreeTerms" name="terms" required>
                             <label for="agreeTerms">Я согласен с условиями использования</label>
                         </div>
                         
@@ -434,9 +474,9 @@
                     <div class="social-login">
                         <p>Или зарегистрируйтесь через</p>
                         <div class="social-buttons">
-                            <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-btn google"><i class="fab fa-google"></i></a>
-                            <a href="#" class="social-btn vk"><i class="fab fa-vk"></i></a>
+                            <a href="https://www.facebook.com/" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.google.com/" class="social-btn google"><i class="fab fa-google"></i></a>
+                            <a href="https://vk.com/?lang=en" class="social-btn vk"><i class="fab fa-vk"></i></a>
                         </div>
                     </div>
                 </div>
@@ -452,7 +492,6 @@
                 <div class="footer-links">
                     <a href="#">О нас</a>
                     <a href="#">Услуги</a>
-                    <a href="#">Врачи</a>
                     <a href="#">Контакты</a>
                 </div>
             </div>
@@ -474,6 +513,9 @@
             registerTab.classList.remove('active');
             loginForm.style.display = 'block';
             registerForm.style.display = 'none';
+            // Clear messages when switching tabs
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
         });
         
         registerTab.addEventListener('click', () => {
@@ -481,42 +523,91 @@
             loginTab.classList.remove('active');
             registerForm.style.display = 'block';
             loginForm.style.display = 'none';
+            // Clear messages when switching tabs
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
         });
         
-        // Form submission handling
-        const loginFormElement = document.querySelector('#loginForm form');
-        const registerFormElement = document.querySelector('#registerForm form');
-        
-        loginFormElement.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            
-            // Here you would normally send the data to the server
-            alert(`Вход выполнен!\nEmail: ${email}\nЗапомнить меня: ${rememberMe}`);
-        });
-        
-        registerFormElement.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('registerEmail').value;
+        // Client-side validation for registration form
+        document.getElementById('registerFormElement').addEventListener('submit', function(e) {
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const terms = document.getElementById('agreeTerms').checked;
             
             if (password !== confirmPassword) {
-                alert('Пароли не совпадают!');
+                e.preventDefault();
+                showError('Пароли не совпадают!');
                 return;
             }
             
-            if (!agreeTerms) {
-                alert('Вы должны согласиться с условиями использования!');
+            if (password.length < 6) {
+                e.preventDefault();
+                showError('Пароль должен содержать минимум 6 символов!');
                 return;
             }
             
-            // Here you would normally send the data to the server
-            alert(`Регистрация выполнена!\nИмя: ${fullName}\nEmail: ${email}`);
+            if (!terms) {
+                e.preventDefault();
+                showError('Вы должны согласиться с условиями использования!');
+                return;
+            }
+        });
+        
+        // Function to show error messages
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            
+            // Hide success message if visible
+            document.getElementById('successMessage').classList.remove('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Function to show success messages
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+            
+            // Hide error message if visible
+            document.getElementById('errorMessage').classList.remove('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                successDiv.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Check for URL parameters (for messages from PHP)
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.has('error')) {
+                const error = urlParams.get('error');
+                if (error === 'invalid') {
+                    showError('Неверный email/телефон или пароль');
+                } else if (error === 'empty') {
+                    showError('Пожалуйста, заполните все поля');
+                } else if (error === 'login_required') {
+                    showError('Пожалуйста, войдите в систему');
+                }
+            }
+            
+            if (urlParams.has('success')) {
+                const success = urlParams.get('success');
+                if (success === 'registered') {
+                    showSuccess('Регистрация успешна! Теперь вы можете войти.');
+                    // Switch to login tab
+                    loginTab.click();
+                } else if (success === 'logout') {
+                    showSuccess('Вы успешно вышли из системы');
+                }
+            }
         });
         
         // Forgot password link
@@ -525,6 +616,7 @@
             e.preventDefault();
             const email = prompt('Введите ваш email для восстановления пароля:');
             if (email) {
+                // In a real app, this would send a request to password_reset.php
                 alert(`Инструкция по восстановлению пароля отправлена на ${email}`);
             }
         });
