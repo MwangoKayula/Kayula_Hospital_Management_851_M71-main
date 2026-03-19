@@ -20,6 +20,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .container {
@@ -29,36 +30,117 @@
             padding: 0 20px;
         }
         
+        /* Page Transition Overlay */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #4caf50;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .page-transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Top Bar with Live Clock */
+        .top-bar {
+            background-color: #0056b3;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .live-clock {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .live-clock i {
+            margin-right: 5px;
+        }
+        
+        .greeting {
+            font-weight: 600;
+        }
+        
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
         /* Header Styles */
         header {
-             background-color: #ffffff;
+            background-color: #ffffff;
             color: rgb(3, 185, 28);
             padding: 20px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         
         .logo {
-             width: 100px;
+            width: 100px;
             height: auto;
             margin-right: 20px;
             font-size: 28px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-       }
+        }
+        
         .logo span {
             color: #4caf50;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
         nav ul {
             display: flex;
             list-style: none;
+            flex-wrap: wrap;
         }
         
         nav ul li {
@@ -66,14 +148,33 @@
         }
         
         nav ul li a {
-          color: rgb(31, 160, 5);
+            color: rgb(31, 160, 5);
             text-decoration: none;
             font-weight: 700;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
         
         nav ul li a:hover {
             color: #4caf50;
+        }
+        
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
         }
         
         /* Dashboard Layout */
@@ -98,6 +199,7 @@
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .doctor-profile {
@@ -108,6 +210,7 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease;
         }
         
         .doctor-avatar {
@@ -121,17 +224,20 @@
             color: white;
             font-size: 24px;
             margin-right: 15px;
+            transition: background-color 0.3s ease;
         }
         
         .doctor-info h3 {
             font-size: 18px;
             margin-bottom: 5px;
             color: #0056b3;
+            transition: color 0.3s ease;
         }
         
         .doctor-info p {
             font-size: 14px;
             color: #666;
+            transition: color 0.3s ease;
         }
         
         .sidebar-menu {
@@ -180,20 +286,24 @@
             font-size: 28px;
             color: #0056b3;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
         
         .dashboard-header p {
             color: #666;
+            transition: color 0.3s ease;
         }
         
         .stats-container {
             display: flex;
             gap: 20px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .stat-card {
             flex: 1;
+            min-width: 200px;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
@@ -211,25 +321,30 @@
             font-weight: bold;
             color: #0056b3;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
         
         .stat-label {
             color: #666;
             font-size: 16px;
+            transition: color 0.3s ease;
         }
         
         .content-section {
             display: flex;
             gap: 20px;
             flex: 1;
+            flex-wrap: wrap;
         }
         
         .employees-section {
             flex: 2;
+            min-width: 300px;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .section-header {
@@ -239,11 +354,13 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
+            transition: border-color 0.3s ease;
         }
         
         .section-title {
             font-size: 20px;
             color: #0056b3;
+            transition: color 0.3s ease;
         }
         
         .view-all {
@@ -251,6 +368,7 @@
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
         
         .view-all:hover {
@@ -266,6 +384,7 @@
             align-items: center;
             padding: 15px 0;
             border-bottom: 1px solid #f0f0f0;
+            transition: border-color 0.3s ease;
         }
         
         .employee-item:last-child {
@@ -283,6 +402,7 @@
             color: #4caf50;
             font-size: 20px;
             margin-right: 15px;
+            transition: background-color 0.3s ease;
         }
         
         .employee-info {
@@ -292,24 +412,29 @@
         .employee-name {
             font-weight: 500;
             margin-bottom: 5px;
+            transition: color 0.3s ease;
         }
         
         .employee-role {
             font-size: 14px;
             color: #666;
+            transition: color 0.3s ease;
         }
         
         .employee-time {
             font-size: 14px;
             color: #666;
+            transition: color 0.3s ease;
         }
         
         .calendar-section {
             flex: 1;
+            min-width: 250px;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .calendar {
@@ -326,6 +451,7 @@
         .calendar-month {
             font-weight: 500;
             color: #0056b3;
+            transition: color 0.3s ease;
         }
         
         .calendar-nav {
@@ -404,6 +530,7 @@
             font-size: 12px;
             color: #666;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
         
         /* Footer */
@@ -412,12 +539,14 @@
             color: white;
             padding: 40px 0;
             text-align: center;
+            transition: background-color 0.3s ease;
         }
         
         .footer-content {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
+            gap: 30px;
         }
         
         .footer-logo {
@@ -429,12 +558,14 @@
         .footer-links {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
         
         .footer-links a {
             color: white;
             text-decoration: none;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
         
         .footer-links a:hover {
@@ -447,6 +578,127 @@
             border-top: 1px solid #34495e;
             font-size: 14px;
             color: #bdc3c7;
+            transition: border-color 0.3s ease;
+        }
+        
+        /* ===== DARK MODE STYLES ===== */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .top-bar {
+            background-color: #1e3a5f;
+        }
+        
+        body.dark-mode header {
+            background-color: #2d2d2d;
+            color: #4caf50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .sidebar {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .doctor-profile {
+            background-color: #3d3d3d;
+        }
+        
+        body.dark-mode .doctor-info h3 {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .doctor-info p {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .sidebar-menu a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .sidebar-menu a:hover,
+        body.dark-mode .sidebar-menu a.active {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        body.dark-mode .dashboard-header h1 {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .dashboard-header p {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .stat-card {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .stat-value {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .employees-section,
+        body.dark-mode .calendar-section {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .section-header {
+            border-bottom-color: #4d4d4d;
+        }
+        
+        body.dark-mode .section-title {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .employee-item {
+            border-bottom-color: #4d4d4d;
+        }
+        
+        body.dark-mode .employee-avatar {
+            background-color: #4d4d4d;
+            color: #4caf50;
+        }
+        
+        body.dark-mode .employee-name {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .employee-role,
+        body.dark-mode .employee-time {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .calendar-month {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .weekday {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .calendar-day:hover {
+            background-color: #4d4d4d;
+        }
+        
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .copyright {
+            border-top-color: #4d4d4d;
+            color: #999999;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         /* Responsive Design */
@@ -484,12 +736,16 @@
                 text-align: center;
             }
             
+            .header-right {
+                justify-content: center;
+            }
+            
             nav ul {
-                margin-top: 15px;
+                justify-content: center;
             }
             
             nav ul li {
-                margin: 0 10px;
+                margin: 5px 10px;
             }
             
             .footer-content {
@@ -498,25 +754,56 @@
             }
             
             .footer-links {
-                margin-top: 20px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" id="transitionOverlay"></div>
+
+    <!-- Top Bar with Live Clock -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="live-clock">
+                <i class="fas fa-clock"></i>
+                <span id="liveDateTime"></span>
+            </div>
+            <div class="live-clock">
+                <i class="fas fa-user-md"></i>
+                <span class="greeting" id="greeting"></span>
+                <span>Доктор Иванов</span>
+            </div>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+                <span class="toggle-text">Тёмная тема</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-content">
-             <img src = "https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt = "Company Logo" class = "logo">
-            <div class="logo">ПОЛИКЛИНИКИ<span>.</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="#">Врачи</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </nav>
+            <div style="display: flex; align-items: center;">
+                <img src="https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt="Company Logo" class="logo">
+                <div class="logo">ПОЛИКЛИНИКИ<span>.</span></div>
+            </div>
+            
+            <div class="header-right">
+                <nav>
+                    <ul>
+                        <li><a href="home.html" class="nav-link">Главная</a></li>
+                        <li><a href="home.html#servicesSection" class="nav-link">Услуги</a></li>
+                        <li><a href="Doctors_dashboard.html" class="nav-link">Врачи</a></li>
+                        <li><a href="about.html" class="nav-link">О нас</a></li>
+                        <li><a href="#" id="contactsLink" class="nav-link">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button onclick="navigateWithTransition('index.html')" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
         </div>
     </header>
 
@@ -642,10 +929,10 @@
                         
                         <div class="calendar">
                             <div class="calendar-header">
-                                <div class="calendar-month">Ноябрь 2023</div>
+                                <div class="calendar-month" id="currentMonth">Март 2026</div>
                                 <div class="calendar-nav">
-                                    <button><i class="fas fa-chevron-left"></i></button>
-                                    <button><i class="fas fa-chevron-right"></i></button>
+                                    <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                                    <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
                                 </div>
                             </div>
                             
@@ -659,42 +946,8 @@
                                 <div class="weekday">Вс</div>
                             </div>
                             
-                            <div class="calendar-grid">
-                                <div class="calendar-day other-month">29</div>
-                                <div class="calendar-day other-month">30</div>
-                                <div class="calendar-day other-month">31</div>
-                                <div class="calendar-day">1</div>
-                                <div class="calendar-day">2</div>
-                                <div class="calendar-day">3</div>
-                                <div class="calendar-day">4</div>
-                                <div class="calendar-day">5</div>
-                                <div class="calendar-day">6</div>
-                                <div class="calendar-day has-event">7</div>
-                                <div class="calendar-day">8</div>
-                                <div class="calendar-day">9</div>
-                                <div class="calendar-day">10</div>
-                                <div class="calendar-day">11</div>
-                                <div class="calendar-day">12</div>
-                                <div class="calendar-day">13</div>
-                                <div class="calendar-day has-event">14</div>
-                                <div class="calendar-day today">15</div>
-                                <div class="calendar-day">16</div>
-                                <div class="calendar-day">17</div>
-                                <div class="calendar-day">18</div>
-                                <div class="calendar-day">19</div>
-                                <div class="calendar-day">20</div>
-                                <div class="calendar-day has-event">21</div>
-                                <div class="calendar-day">22</div>
-                                <div class="calendar-day">23</div>
-                                <div class="calendar-day">24</div>
-                                <div class="calendar-day">25</div>
-                                <div class="calendar-day">26</div>
-                                <div class="calendar-day">27</div>
-                                <div class="calendar-day has-event">28</div>
-                                <div class="calendar-day">29</div>
-                                <div class="calendar-day">30</div>
-                                <div class="calendar-day other-month">1</div>
-                                <div class="calendar-day other-month">2</div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Generated by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -709,79 +962,236 @@
             <div class="footer-content">
                 <div class="footer-logo">ПОЛИКЛИНИКИ<span>.</span></div>
                 <div class="footer-links">
-                    <a href="#">О нас</a>
-                    <a href="#">Услуги</a>
-                    <a href="#">Врачи</a>
-                    <a href="#">Контакты</a>
+                    <a href="about.html">О нас</a>
+                    <a href="home.html#servicesSection">Услуги</a>
+                    <a href="Doctors_dashboard.html">Врачи</a>
+                    <a href="#" id="footerContacts">Контакты</a>
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2025 Поликлиники. Все права защищены.
+                &copy; 2026 Поликлиники. Все права защищены.
             </div>
         </div>
     </footer>
 
     <script>
-        // Sidebar menu highlighting
-        const menuItems = document.querySelectorAll('.sidebar-menu a');
+        // ========== 1. DARK MODE FUNCTIONALITY ==========
         
-        menuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            // Check for saved preference
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (darkMode) {
+                body.classList.add('dark-mode');
+                updateDarkModeButton(true);
+            }
+            
+            // Toggle dark mode on button click
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
                 
-                // Remove active class from all items
-                menuItems.forEach(i => i.classList.remove('active'));
+                // Save preference
+                localStorage.setItem('darkMode', isDarkMode);
                 
-                // Add active class to clicked item
-                this.classList.add('active');
+                // Update button appearance
+                updateDarkModeButton(isDarkMode);
             });
-        });
-        
-        // Calendar navigation
-        const prevBtn = document.querySelector('.calendar-nav button:first-child');
-        const nextBtn = document.querySelector('.calendar-nav button:last-child');
-        const monthElement = document.querySelector('.calendar-month');
-        
-        const months = [
-            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-        ];
-        
-        let currentMonth = 12; // November (0-indexed)
-        let currentYear = 2025;
-        
-        function updateCalendar() {
-            monthElement.textContent = `${months[currentMonth]} ${currentYear}`;
         }
         
-        prevBtn.addEventListener('click', () => {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
+        function updateDarkModeButton(isDarkMode) {
+            const toggle = document.getElementById('darkModeToggle');
+            const icon = toggle.querySelector('i');
+            const text = toggle.querySelector('.toggle-text');
+            
+            if (isDarkMode) {
+                icon.className = 'fas fa-sun';
+                text.textContent = 'Светлая тема';
+            } else {
+                icon.className = 'fas fa-moon';
+                text.textContent = 'Тёмная тема';
             }
-            updateCalendar();
-        });
+        }
         
-        nextBtn.addEventListener('click', () => {
-            currentMonth++;
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
+        // ========== 2. LIVE CLOCK FUNCTIONALITY ==========
+        
+        function updateLiveClock() {
+            const now = new Date();
+            
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            const dateTimeString = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('liveDateTime').textContent = dateTimeString;
+            
+            // Update greeting
+            const hour = now.getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Доброе утро';
+            } else if (hour >= 12 && hour < 18) {
+                greeting = 'Добрый день';
+            } else if (hour >= 18 && hour < 23) {
+                greeting = 'Добрый вечер';
+            } else {
+                greeting = 'Доброй ночи';
             }
-            updateCalendar();
-        });
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
         
-        // Calendar day selection
-        const calendarDays = document.querySelectorAll('.calendar-day:not(.other-month)');
+        // ========== 3. PAGE TRANSITION FUNCTIONALITY ==========
         
-        calendarDays.forEach(day => {
-            day.addEventListener('click', function() {
-                // Remove today class from all days
-                calendarDays.forEach(d => d.classList.remove('today'));
+        function navigateWithTransition(url) {
+            const overlay = document.getElementById('transitionOverlay');
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        }
+        
+        function initPageTransitions() {
+            // Handle navigation links
+            const navLinks = document.querySelectorAll('a:not([target="_blank"]):not([href^="#"]):not([href*="javascript"])');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Don't apply to external links
+                    if (this.hostname && this.hostname !== window.location.hostname) {
+                        return;
+                    }
+                    
+                    // Don't apply to hash links (smooth scroll)
+                    if (this.hash && this.href.includes('#')) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    const url = this.href;
+                    navigateWithTransition(url);
+                });
+            });
+        }
+        
+        // ========== 4. CALENDAR FUNCTIONALITY ==========
+        
+        let currentDate = new Date();
+        
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update month display
+            const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month (0 = Sunday, 1 = Monday, etc.)
+            const firstDay = new Date(year, month, 1);
+            let startDay = firstDay.getDay();
+            // Adjust for Monday as first day (0 = Monday, 6 = Sunday)
+            startDay = startDay === 0 ? 6 : startDay - 1;
+            
+            // Get last day of month
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            
+            // Get last day of previous month
+            const lastDayPrevMonth = new Date(year, month, 0);
+            const daysInPrevMonth = lastDayPrevMonth.getDate();
+            
+            // Generate calendar HTML
+            let calendarHTML = '';
+            
+            // Previous month days
+            for (let i = startDay - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                calendarHTML += `<div class="calendar-day other-month">${day}</div>`;
+            }
+            
+            // Current month days
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const isToday = today.getDate() === i && today.getMonth() === month && today.getFullYear() === year;
+                const hasEvent = [7, 14, 21, 28].includes(i); // Example event days
                 
-                // Add today class to clicked day
-                this.classList.add('today');
+                calendarHTML += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}">${i}</div>`;
+            }
+            
+            // Next month days (to fill grid)
+            const totalDays = calendarHTML.split('<div').length - 1;
+            const remainingDays = 42 - totalDays; // 6 rows * 7 days = 42
+            
+            for (let i = 1; i <= remainingDays; i++) {
+                calendarHTML += `<div class="calendar-day other-month">${i}</div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = calendarHTML;
+            
+            // Add click handlers for calendar days
+            document.querySelectorAll('.calendar-day:not(.other-month)').forEach(day => {
+                day.addEventListener('click', function() {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('today'));
+                    this.classList.add('today');
+                });
+            });
+        }
+        
+        // ========== 5. CONTACTS MODAL ==========
+        
+        function showContacts() {
+            alert('Контактная информация:\nг. Москва, ул. Медицинская, 1\nТел: +7 (495) 123-45-67\nEmail: info@polikliniki.ru');
+        }
+        
+        // ========== 6. INITIALIZE ALL FEATURES ==========
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all features
+            initDarkMode();
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            initPageTransitions();
+            renderCalendar();
+            
+            // Calendar navigation
+            document.getElementById('prevMonth').addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            
+            document.getElementById('nextMonth').addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+            
+            // Sidebar menu highlighting
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Contacts links
+            const contactsLinks = document.querySelectorAll('#contactsLink, #footerContacts');
+            contactsLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showContacts();
+                });
             });
         });
     </script>

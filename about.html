@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Поликлиники</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Page Transition Overlay */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #4caf50;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .page-transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Top Bar with Live Clock */
+        .top-bar {
+            background-color: #0056b3;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .live-clock {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .live-clock i {
+            margin-right: 5px;
+        }
+        
+        .greeting {
+            font-weight: 600;
+        }
+        
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            color: rgb(3, 185, 28);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: #4caf50;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: rgb(31, 160, 5);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        nav ul li a:hover {
+            color: #4caf50;
+        }
+        
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+        }
+        
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0056b3, #4caf50);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .page-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* About Content */
+        .about-section {
+            padding: 60px 0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        .about-text h2 {
+            font-size: 32px;
+            color: #0056b3;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .about-text p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            font-size: 40px;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #0056b3;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .mission-card,
+        .vision-card {
+            padding: 40px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover,
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            font-size: 50px;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3,
+        .vision-card h3 {
+            font-size: 24px;
+            color: #0056b3;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .mission-card p,
+        .vision-card p {
+            color: #666;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+        
+        /* Doctors Showcase */
+        .doctors-showcase {
+            margin: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: #0056b3;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #4caf50;
+            border-radius: 2px;
+        }
+        
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .doctor-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .doctor-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .doctor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .doctor-card:hover .doctor-image img {
+            transform: scale(1.1);
+        }
+        
+        .doctor-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .doctor-info h3 {
+            font-size: 20px;
+            color: #0056b3;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .doctor-info p {
+            color: #4caf50;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .doctor-specialty {
+            color: #666;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-links a:hover {
+            color: #4caf50;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            font-size: 14px;
+            color: #bdc3c7;
+            transition: border-color 0.3s ease;
+        }
+        
+        /* ===== DARK MODE STYLES ===== */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .top-bar {
+            background-color: #1e3a5f;
+        }
+        
+        body.dark-mode header {
+            background-color: #2d2d2d;
+            color: #4caf50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .page-hero {
+            background: linear-gradient(135deg, #1e3a5f, #2d5a2d);
+        }
+        
+        body.dark-mode .stat-item {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .stat-number {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .mission-card,
+        body.dark-mode .vision-card,
+        body.dark-mode .doctor-card {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .about-text h2,
+        body.dark-mode .mission-card h3,
+        body.dark-mode .vision-card h3,
+        body.dark-mode .section-title h2,
+        body.dark-mode .doctor-info h3 {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .about-text p,
+        body.dark-mode .mission-card p,
+        body.dark-mode .vision-card p,
+        body.dark-mode .doctor-specialty {
+            color: #cccccc;
+        }
+        
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .copyright {
+            border-top-color: #4d4d4d;
+            color: #999999;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .doctors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-right {
+                justify-content: center;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .page-hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" id="transitionOverlay"></div>
+
+    <!-- Top Bar with Live Clock -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="live-clock">
+                <i class="fas fa-clock"></i>
+                <span id="liveDateTime"></span>
+            </div>
+            <div class="live-clock">
+                <i class="fas fa-user-md"></i>
+                <span class="greeting" id="greeting"></span>
+                <span>Гость</span>
+            </div>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+                <span class="toggle-text">Тёмная тема</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div style="display: flex; align-items: center;">
+                <img src="https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt="Company Logo" class="logo">
+                <div class="logo">ПОЛИКЛИНИКИ<span>.</span></div>
+            </div>
+            
+            <div class="header-right">
+                <nav>
+                    <ul>
+                        <li><a href="home.html" class="nav-link">Главная</a></li>
+                        <li><a href="home.html#servicesSection" class="nav-link">Услуги</a></li>
+                        <li><a href="Doctors_dashboard.html" class="nav-link">Врачи</a></li>
+                        <li><a href="about.html" class="nav-link">О нас</a></li>
+                        <li><a href="#" id="contactsLink" class="nav-link">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button onclick="navigateWithTransition('index.html')" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>О клинике "Поликлиники"</h1>
+            <p>Более 25 лет заботы о вашем здоровье с использованием передовых технологий и индивидуальным подходом</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-section">
+        <div class="container">
+            <!-- About Grid -->
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Наша клиника">
+                </div>
+                <div class="about-text">
+                    <h2>Крупнейший медицинский центр в регионе</h2>
+                    <p>Медицинский центр «Поликлиники» был основан в 1998 году группой ведущих специалистов в области медицины. За более чем четверть века работы мы выросли из небольшой частной клиники в крупнейший многопрофильный медицинский центр, обслуживающий более 100 000 пациентов ежегодно.</p>
+                    <p>Наша миссия — предоставлять высококачественную медицинскую помощь, доступную каждому. Мы постоянно внедряем инновационные методы диагностики и лечения, следуя мировым стандартам здравоохранения.</p>
+                    <p>Сегодня «Поликлиники» — это команда из более чем 500 высококвалифицированных специалистов, современное диагностическое оборудование экспертного класса и комфортабельный стационар на 200 мест.</p>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Лет работы</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Врачей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <div class="stat-number">200</div>
+                    <div class="stat-label">Коек в стационаре</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="stat-number">100k+</div>
+                    <div class="stat-label">Пациентов в год</div>
+                </div>
+            </div>
+            
+            <!-- Mission & Vision -->
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Наша миссия</h3>
+                    <p>Обеспечение доступности высокотехнологичной медицинской помощи для каждого пациента. Мы стремимся создавать комфортные условия для лечения, использовать самые современные методы диагностики и терапии, а также развивать профилактическое направление медицины.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Наше видение</h3>
+                    <p>Стать эталоном качества медицинских услуг в регионе, создать интегрированную систему здравоохранения, объединяющую профилактику, диагностику, лечение и реабилитацию. Мы видим будущее, где каждый человек имеет доступ к персонализированной медицине.</p>
+                </div>
+            </div>
+            
+            <!-- Doctors Showcase -->
+            <div class="doctors-showcase">
+                <div class="section-title">
+                    <h2>Ведущие специалисты</h2>
+                </div>
+                
+                <div class="doctors-grid">
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Доктор Иванов">
+                        </div>
+                        <div class="doctor-info">
+                            <h3>Доктор Иванов</h3>
+                            <p>Главный врач</p>
+                            <span class="doctor-specialty">Терапевт, к.м.н., стаж 25 лет</span>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Доктор Петрова">
+                        </div>
+                        <div class="doctor-info">
+                            <h3>Доктор Петрова</h3>
+                            <p>Заведующая отделением</p>
+                            <span class="doctor-specialty">Кардиолог, д.м.н., стаж 20 лет</span>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Доктор Смирнов">
+                        </div>
+                        <div class="doctor-info">
+                            <h3>Доктор Смирнов</h3>
+                            <p>Ведущий хирург</p>
+                            <span class="doctor-specialty">Хирург высшей категории, стаж 18 лет</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ПОЛИКЛИНИКИ<span>.</span></div>
+                <div class="footer-links">
+                    <a href="about.html">О нас</a>
+                    <a href="home.html#servicesSection">Услуги</a>
+                    <a href="Doctors_dashboard.html">Врачи</a>
+                    <a href="#" id="footerContacts">Контакты</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Поликлиники. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== 1. DARK MODE FUNCTIONALITY ==========
+        
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            // Check for saved preference
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (darkMode) {
+                body.classList.add('dark-mode');
+                updateDarkModeButton(true);
+            }
+            
+            // Toggle dark mode on button click
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                
+                // Save preference
+                localStorage.setItem('darkMode', isDarkMode);
+                
+                // Update button appearance
+                updateDarkModeButton(isDarkMode);
+            });
+        }
+        
+        function updateDarkModeButton(isDarkMode) {
+            const toggle = document.getElementById('darkModeToggle');
+            const icon = toggle.querySelector('i');
+            const text = toggle.querySelector('.toggle-text');
+            
+            if (isDarkMode) {
+                icon.className = 'fas fa-sun';
+                text.textContent = 'Светлая тема';
+            } else {
+                icon.className = 'fas fa-moon';
+                text.textContent = 'Тёмная тема';
+            }
+        }
+        
+        // ========== 2. LIVE CLOCK FUNCTIONALITY ==========
+        
+        function updateLiveClock() {
+            const now = new Date();
+            
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            const dateTimeString = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('liveDateTime').textContent = dateTimeString;
+            
+            // Update greeting
+            const hour = now.getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Доброе утро';
+            } else if (hour >= 12 && hour < 18) {
+                greeting = 'Добрый день';
+            } else if (hour >= 18 && hour < 23) {
+                greeting = 'Добрый вечер';
+            } else {
+                greeting = 'Доброй ночи';
+            }
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
+        
+        // ========== 3. PAGE TRANSITION FUNCTIONALITY ==========
+        
+        function navigateWithTransition(url) {
+            const overlay = document.getElementById('transitionOverlay');
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        }
+        
+        function initPageTransitions() {
+            // Handle navigation links
+            const navLinks = document.querySelectorAll('a:not([target="_blank"]):not([href^="#"]):not([href*="javascript"])');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Don't apply to external links
+                    if (this.hostname && this.hostname !== window.location.hostname) {
+                        return;
+                    }
+                    
+                    // Don't apply to hash links (smooth scroll)
+                    if (this.hash && this.href.includes('#')) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    const url = this.href;
+                    navigateWithTransition(url);
+                });
+            });
+        }
+        
+        // ========== 4. CONTACTS MODAL ==========
+        
+        function showContacts() {
+            alert('Контактная информация:\nг. Москва, ул. Медицинская, 1\nТел: +7 (495) 123-45-67\nEmail: info@polikliniki.ru');
+        }
+        
+        // ========== 5. INITIALIZE ALL FEATURES ==========
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all features
+            initDarkMode();
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            initPageTransitions();
+            
+            // Contacts links
+            const contactsLinks = document.querySelectorAll('#contactsLink, #footerContacts');
+            contactsLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showContacts();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
