@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход и регистрация - Поликлиники</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            color: rgb(35, 197, 52);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+       .logo {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+       }
+        
+        .logo span {
+            color: #4caf50;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: rgb(31, 160, 5);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #3361e0;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            background: linear-gradient(rgba(0, 86, 179, 0.05), rgba(76, 175, 80, 0.05));
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .form-tabs {
+            display: flex;
+            background-color: #f0f0f0;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+        
+        .tab-btn.active {
+            background-color: #0056b3;
+            color: white;
+        }
+        
+        .tab-btn:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+        
+        .form-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-check input {
+            margin-right: 10px;
+            width: auto;
+        }
+        
+        .form-check label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        
+        .form-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .form-links a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .social-login p {
+            margin-bottom: 15px;
+            color: #666;
+            position: relative;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn.facebook {
+            background-color: #3b5998;
+        }
+        
+        .social-btn.google {
+            background-color: #dd4b39;
+        }
+        
+        .social-btn.vk {
+            background-color: #4a76a8;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #4caf50;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+             <img src = "https://img.freepik.com/premium-vector/hospital-logo-vector_1277164-14205.jpg" alt = "Company Logo" class = "logo">
+            <div class="logo">ПОЛИКЛИНИКИ<span>.</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Услуги</a></li>
+                    <li><a href="#">Врачи</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="form-container">
+            <div class="form-tabs">
+                <button class="tab-btn active" id="loginTab">Вход</button>
+                <button class="tab-btn" id="registerTab">Регистрация</button>
+            </div>
+            
+            <div class="form-content">
+                <!-- Login Form -->
+                <div id="loginForm" class="tab-content">
+                    <form>
+                        <div class="form-group">
+                            <label for="loginEmail">адрес электронной почты / номер телефона</label>
+                            <input type="text" id="loginEmail" placeholder="Введите email или телефон">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">пароль</label>
+                            <input type="password" id="loginPassword" placeholder="Введите пароль">
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Запомнить меня</label>
+                        </div>
+                        
+                        <div class="form-links">
+                            <a href="#" id="forgotPasswordLink">Забыли пароль</a>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Войти</button>
+                         <button onclick= "window.open('home.html')" class="btn">Temp login</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <p>Или войдите через</p>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-btn google"><i class="fab fa-google"></i></a>
+                            <a href="#" class="social-btn vk"><i class="fab fa-vk"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Registration Form -->
+                <div id="registerForm" class="tab-content" style="display: none;">
+                    <form>
+                        <div class="form-group">
+                            <label for="fullName">полное имя</label>
+                            <input type="text" id="fullName" placeholder="Введите ваше имя">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerEmail">адрес электронной почты</label>
+                            <input type="email" id="registerEmail" placeholder="Введите email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPassword">пароль</label>
+                            <input type="password" id="registerPassword" placeholder="Введите пароль">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">подтвердите пароль</label>
+                            <input type="password" id="confirmPassword" placeholder="Подтвердите пароль">
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="agreeTerms">
+                            <label for="agreeTerms">Я согласен с условиями использования</label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Зарегистрироваться</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <p>Или зарегистрируйтесь через</p>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-btn google"><i class="fab fa-google"></i></a>
+                            <a href="#" class="social-btn vk"><i class="fab fa-vk"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ПОЛИКЛИНИКИ<span>.</span></div>
+                <div class="footer-links">
+                    <a href="#">О нас</a>
+                    <a href="#">Услуги</a>
+                    <a href="#">Врачи</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Поликлиники. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        });
+        
+        registerTab.addEventListener('click', () => {
+            registerTab.classList.add('active');
+            loginTab.classList.remove('active');
+            registerForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        });
+        
+        // Form submission handling
+        const loginFormElement = document.querySelector('#loginForm form');
+        const registerFormElement = document.querySelector('#registerForm form');
+        
+        loginFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Here you would normally send the data to the server
+            alert(`Вход выполнен!\nEmail: ${email}\nЗапомнить меня: ${rememberMe}`);
+        });
+        
+        registerFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают!');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                alert('Вы должны согласиться с условиями использования!');
+                return;
+            }
+            
+            // Here you would normally send the data to the server
+            alert(`Регистрация выполнена!\nИмя: ${fullName}\nEmail: ${email}`);
+        });
+        
+        // Forgot password link
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = prompt('Введите ваш email для восстановления пароля:');
+            if (email) {
+                alert(`Инструкция по восстановлению пароля отправлена на ${email}`);
+            }
+        });
+    </script>
+</body>
+</html>

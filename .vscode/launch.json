@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open landing page.html",
+            "file": "d:\\School 2025\\1st year Masters\\1st Semester\\Methods and Tools For software development\\Hospital Website\\landing page.html"
+        }
+    ]
+}
