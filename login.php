@@ -3,7 +3,7 @@ require_once 'db_config.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    redirect('home.html');
+    redirect('home.php');
 }
 
 $error = '';
