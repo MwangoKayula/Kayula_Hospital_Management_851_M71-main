@@ -6,7 +6,7 @@
     <title>Медицинская платформа - Поликлиники</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ALL YOUR EXISTING CSS STYLES REMAIN EXACTLY THE SAME */
+        /* ===== YOUR EXISTING STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -18,6 +18,7 @@
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .container {
@@ -33,6 +34,7 @@
             color: rgb(3, 185, 28);
             padding: 20px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .header-content {
@@ -53,6 +55,73 @@
         
         .logo span {
             color: #4caf50;
+        }
+        
+        /* Top Bar with Live Clock - NEW */
+        .top-bar {
+            background-color: #0056b3;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .live-clock {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .live-clock i {
+            margin-right: 5px;
+        }
+        
+        .greeting {
+            font-weight: 600;
+        }
+        
+        /* Dark Mode Toggle Button - NEW */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Page Transition Overlay - NEW */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #4caf50;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .page-transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
         
         nav ul {
@@ -84,6 +153,7 @@
             color: rgb(2, 33, 2);
             position: relative;
             overflow: hidden;
+            transition: background-color 0.3s ease;
         }
         
         .hero::before {
@@ -223,11 +293,12 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
         
-        /* Services Section - WITH ID for scrolling */
+        /* Services Section */
         .services {
             padding: 70px 0;
             background-color: white;
             scroll-margin-top: 100px;
+            transition: background-color 0.3s ease;
         }
         
         .section-title {
@@ -241,6 +312,7 @@
             position: relative;
             display: inline-block;
             padding-bottom: 15px;
+            transition: color 0.3s ease;
         }
         
         .section-title h2::after {
@@ -286,17 +358,20 @@
             margin: 0 auto 20px;
             font-size: 36px;
             color: #4caf50;
+            transition: background-color 0.3s ease;
         }
         
         .service-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
             color: #0056b3;
+            transition: color 0.3s ease;
         }
         
         .service-card p {
             color: #666;
             margin-bottom: 20px;
+            transition: color 0.3s ease;
         }
         
         .service-btn {
@@ -321,6 +396,7 @@
             color: white;
             padding: 40px 0;
             text-align: center;
+            transition: background-color 0.3s ease;
         }
         
         .footer-content {
@@ -356,6 +432,102 @@
             border-top: 1px solid #34495e;
             font-size: 14px;
             color: #bdc3c7;
+            transition: border-color 0.3s ease;
+        }
+        
+        /* Logout button */
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* ===== DARK MODE STYLES ===== */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode header {
+            background-color: #2d2d2d;
+            color: #4caf50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .top-bar {
+            background-color: #1e3a5f;
+        }
+        
+        body.dark-mode .hero {
+            background-color: #1e3a3a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .services {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .service-card {
+            background-color: #3d3d3d;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .service-card h3 {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .service-card p {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .service-icon {
+            background-color: #4d4d4d;
+            color: #4caf50;
+        }
+        
+        body.dark-mode .section-title h2 {
+            color: #4caf50;
+        }
+        
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .copyright {
+            border-top-color: #4d4d4d;
+            color: #999999;
+        }
+        
+        body.dark-mode nav ul li a {
+            color: #4caf50;
+        }
+        
+        body.dark-mode .btn {
+            background-color: #4d4d4d;
+            color: #4caf50;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .btn:hover {
+            background-color: #5d5d5d;
         }
         
         /* Responsive Design */
@@ -399,52 +571,35 @@
                 height: 40px;
                 font-size: 18px;
             }
-        }
-        
-        /* Demo mode notice - NEW */
-        .demo-banner {
-            background-color: #e7f3ff;
-            text-align: center;
-            padding: 8px;
-            font-size: 14px;
-            border-bottom: 1px solid #0056b3;
-        }
-        
-        .demo-banner i {
-            color: #0056b3;
-            margin-right: 5px;
-        }
-        
-        /* Logout button - NEW */
-        .logout-btn {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 14px;
-            margin-left: 20px;
-        }
-        
-        .logout-btn:hover {
-            background-color: #ff3333;
-            transform: translateY(-2px);
-        }
-        
-        .header-right {
-            display: flex;
-            align-items: center;
+            
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Demo Mode Banner -->
-    <div class="demo-banner">
-        <i class="fas fa-info-circle"></i> Демо-режим: Вы вошли как "Пациент"
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" id="transitionOverlay"></div>
+
+    <!-- Top Bar with Live Clock -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="live-clock">
+                <i class="fas fa-clock"></i>
+                <span id="liveDateTime"></span>
+            </div>
+            <div class="live-clock">
+                <i class="fas fa-user-md"></i>
+                <span class="greeting" id="greeting"></span>
+                <span id="patientName">Гость</span>
+            </div>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+                <span class="toggle-text">Тёмная тема</span>
+            </button>
+        </div>
     </div>
 
     <!-- Header -->
@@ -456,13 +611,13 @@
             <div class="header-right">
                 <nav>
                     <ul>
-                        <li><a href="#" id="homeLink">Главная</a></li>
-                        <li><a href="#" id="servicesLink">Услуги</a></li>
-                        <li><a href="Doctors_dashboard.html">Врачи</a></li>
-                        <li><a href="#" id="contactsLink">Контакты</a></li>
+                        <li><a href="#" id="homeLink" class="nav-link">Главная</a></li>
+                        <li><a href="#" id="servicesLink" class="nav-link">Услуги</a></li>
+                        <li><a href="Doctors_dashboard.html" class="nav-link">Врачи</a></li>
+                        <li><a href="#" id="contactsLink" class="nav-link">Контакты</a></li>
                     </ul>
                 </nav>
-                <button onclick="window.location.href='index.html'" class="logout-btn">
+                <button onclick="navigateWithTransition('index.html')" class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
                 </button>
             </div>
@@ -476,7 +631,7 @@
             <div class="slider-container">
                 <div class="slides-wrapper" id="slides">
                     <div class="slide">
-                        <img src="https://dfcm.utoronto.ca/sites/default/files/styles/scale_width_1750/public/assets/news/image/iStock-1301555107_0.jpg?itok=KJG3yAQg">
+                        <img src="https://dfcm.utoronto.ca/sites/default/files/styles/scale_width_1750/public/assets/news/image/iStock-1301555107_0.jpg?itok=KJG3yAQg" alt="Hospital">
                     </div>
                     <div class="slide">
                         <img src="https://img.freepik.com/premium-photo/young-doctor-russian-woman-isolated-white-background-showing-copy-space-palm-holding-another-hand-waist_1187-188130.jpg" alt="Медицинский персонал">
@@ -502,7 +657,7 @@
             
             <h1>Найдите своего врача и запишитесь на прием</h1>
             <div class="btn-group">
-                <button onclick="window.location.href='Doctors_dashboard.html'" class="btn">Записаться на приём</button>
+                <button onclick="navigateWithTransition('Doctors_dashboard.html')" class="btn">Записаться на приём</button>
                 <button class="btn" id="learnMoreBtn">Смотрите больше</button>
             </div>
         </div>
@@ -565,7 +720,126 @@
     </footer>
 
     <script>
-        // ========== SMOOTH SCROLLING ==========
+        // ========== 1. DARK MODE FUNCTIONALITY ==========
+        
+        // Initialize dark mode based on saved preference
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            // Check for saved preference
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (darkMode) {
+                body.classList.add('dark-mode');
+                updateDarkModeButton(true);
+            }
+            
+            // Toggle dark mode on button click
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                
+                // Save preference
+                localStorage.setItem('darkMode', isDarkMode);
+                
+                // Update button appearance
+                updateDarkModeButton(isDarkMode);
+            });
+        }
+        
+        // Update dark mode button icon and text
+        function updateDarkModeButton(isDarkMode) {
+            const toggle = document.getElementById('darkModeToggle');
+            const icon = toggle.querySelector('i');
+            const text = toggle.querySelector('.toggle-text');
+            
+            if (isDarkMode) {
+                icon.className = 'fas fa-sun';
+                text.textContent = 'Светлая тема';
+            } else {
+                icon.className = 'fas fa-moon';
+                text.textContent = 'Тёмная тема';
+            }
+        }
+        
+        // ========== 2. LIVE CLOCK FUNCTIONALITY ==========
+        
+        // Update clock every second
+        function updateLiveClock() {
+            const now = new Date();
+            
+            // Format: "понедельник, 19 марта 2025 г., 14:30:45"
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            const dateTimeString = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('liveDateTime').textContent = dateTimeString;
+            
+            // Update greeting based on time of day
+            const hour = now.getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Доброе утро';
+            } else if (hour >= 12 && hour < 18) {
+                greeting = 'Добрый день';
+            } else if (hour >= 18 && hour < 23) {
+                greeting = 'Добрый вечер';
+            } else {
+                greeting = 'Доброй ночи';
+            }
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
+        
+        // ========== 3. PAGE TRANSITION FUNCTIONALITY ==========
+        
+        // Navigate with fade transition
+        function navigateWithTransition(url) {
+            const overlay = document.getElementById('transitionOverlay');
+            overlay.classList.add('active');
+            
+            // Wait for fade out, then navigate
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        }
+        
+        // Handle all internal navigation links
+        function initPageTransitions() {
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('a:not([target="_blank"]):not([href^="#"])');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Don't apply to external links or hash links
+                    if (this.hostname === window.location.hostname && 
+                        !this.hash && 
+                        this.href !== window.location.href) {
+                        
+                        e.preventDefault();
+                        const url = this.href;
+                        
+                        // Use transition
+                        navigateWithTransition(url);
+                    }
+                });
+            });
+            
+            // Handle buttons with navigation
+            const navButtons = document.querySelectorAll('[onclick*="window.location"]');
+            // We'll let them use the navigateWithTransition function directly
+        }
+        
+        // ========== SMOOTH SCROLLING (your existing code) ==========
         
         function scrollToServices() {
             const servicesSection = document.getElementById('servicesSection');
@@ -584,9 +858,20 @@
             });
         }
         
-        // Add click event listeners
+        // ========== INITIALIZE ALL FEATURES ==========
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Services link in navigation
+            // Initialize dark mode
+            initDarkMode();
+            
+            // Initialize live clock (update immediately and every second)
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            
+            // Initialize page transitions
+            initPageTransitions();
+            
+            // Smooth scroll functionality (your existing code)
             const servicesLink = document.getElementById('servicesLink');
             if (servicesLink) {
                 servicesLink.addEventListener('click', function(e) {
@@ -595,7 +880,6 @@
                 });
             }
             
-            // Services link in footer
             const footerServices = document.getElementById('footerServices');
             if (footerServices) {
                 footerServices.addEventListener('click', function(e) {
@@ -604,7 +888,6 @@
                 });
             }
             
-            // Home link - scroll to top
             const homeLink = document.getElementById('homeLink');
             if (homeLink) {
                 homeLink.addEventListener('click', function(e) {
@@ -613,7 +896,6 @@
                 });
             }
             
-            // Footer About - scroll to top
             const footerAbout = document.getElementById('footerAbout');
             if (footerAbout) {
                 footerAbout.addEventListener('click', function(e) {
@@ -622,7 +904,6 @@
                 });
             }
             
-            // Contacts links - show info
             const contactsLinks = document.querySelectorAll('#contactsLink, #footerContacts');
             contactsLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -631,7 +912,6 @@
                 });
             });
             
-            // Learn more button
             const learnMoreBtn = document.getElementById('learnMoreBtn');
             if (learnMoreBtn) {
                 learnMoreBtn.addEventListener('click', function() {
@@ -640,7 +920,7 @@
             }
         });
 
-        // ========== SLIDER FUNCTIONALITY ==========
+        // ========== SLIDER FUNCTIONALITY (your existing code) ==========
         const slides = document.getElementById('slides');
         const slideImages = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevBtn');
